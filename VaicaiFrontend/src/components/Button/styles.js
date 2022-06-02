@@ -6,17 +6,17 @@ export const Container = styled.button`
     width:100%;
     height:50px;
     font-size: 16px;
-    background: ${shade(0.2, '#b0a2ee')};
+    background: ${shade(0.2, '#ff8d0b')};
     border-radius: 10px;
     border:none;
     outline:none;
     -webkit-font-smoothing: antialiased;
-    color: #f4ede8;
+    color: #ff8d0b;
     font-weight: 600;
 
     transition: background-color 0.2s;
 
   &:hover {
-    background-color: ${shade(0.4, '#b0a2ee')};
+    background-color: ${shade(0.4, '#ff8d0b')};
   }
 `;

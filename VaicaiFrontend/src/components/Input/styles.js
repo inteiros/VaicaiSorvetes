@@ -3,13 +3,13 @@ import styled, { css } from 'styled-components';
 import Tooltip from './Tooltip/index';
 
 export const Container = styled.div`
-  background: #131419;
+  background: #b3b3b3;
   border-radius: 10px;
   padding: 16px;
   width: 100%;
 
-  border: 1px solid #131419;
-  color: #b3b3b3;
+  border: 1px solid #ff8d0b;
+  color: #131419;
 
   display: flex;
   align-items: center;
@@ -28,14 +28,14 @@ export const Container = styled.div`
   ${(props) =>
     props.isFocused &&
     css`
-      color: #b0a2ee;
-      border-color: #b0a2ee;
+      color: #ff8d0b;
+      border-color: #ff8d0b;
     `}
 
   ${(props) =>
     props.isFilled &&
     css`
-      color: #b0a2ee;
+      color: #ff8d0b;
     `}
 
   input {

@@ -16,8 +16,8 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #7b1fa2;
-    color: #4a148c;
+    background: linear-gradient(to bottom right, #f46e00, #ff8d0b);
+    color: #FFF;
     -webkit-font-smoothing: antialiased;
 
     ::-webkit-scrollbar {
@@ -34,7 +34,7 @@ export default createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6, strong {
     font-weight: 500;
-    color: #4a148c;
+    color: #FFF;
   }
 
   button {
