@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import { Form } from '@unform/web';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -10,7 +10,11 @@ import {
   Content,
 } from './styles';
 import logoImg from '../../assets/logo.png';
+import { FiAlertCircle, FiCamera, FiDollarSign, FiPower } from 'react-icons/fi';
 import { useAuth } from '../../hooks/auth';
+import * as Yup from 'yup';
+import getValidationErrors from '../../utils/getValidationErrors';
+
 import api from '../../services/api';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -19,6 +23,7 @@ import Button from '../../components/Button';
 const Dashboard = () => {
   const { signOut, user } = useAuth();
   const formRef = useRef(null);
+  const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data) => {
@@ -27,7 +32,7 @@ const Dashboard = () => {
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome do sabor obrigatório'),
-          price: Yup.double(),
+          price: Yup.string(),
           pic: Yup.string(),
         });
 
@@ -86,9 +91,9 @@ const Dashboard = () => {
               <Form ref={formRef} onSubmit={handleSubmit}>
               <h1>Cadastre o sabor</h1>
   
-              <Input name="name" placeholder="Nome do sabor" />
-              <Input name="price" placeholder="price" />
-              <Input name="pic" placeholder="Foto" />
+              <Input name="name" icon={FiAlertCircle} placeholder="Nome do sabor" />
+              <Input name="price" icon={FiDollarSign} placeholder="Preço" />
+              <Input name="pic" icon={FiCamera} placeholder="Foto" />
               <Button type="submit">Cadastrar sabor</Button>
             </Form>
           )}

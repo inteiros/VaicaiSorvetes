@@ -2,6 +2,7 @@ import React, { useRef, useCallback } from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
+import { FiMail, FiLock, FiLogIn } from 'react-icons/fi';
 
 import { useAuth } from '../../hooks/auth';
 import getValidationErrors from '../../utils/getValidationErrors';

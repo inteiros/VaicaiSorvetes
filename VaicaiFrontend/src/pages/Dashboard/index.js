@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import 'react-day-picker/lib/style.css';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import {
@@ -12,8 +11,10 @@ import {
   Section,
   Provider,
   Orders,
-  Calendar,
 } from './styles';
+
+import { FiPower } from 'react-icons/fi';
+
 import logoImg from '../../assets/logo.png';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
@@ -110,13 +111,13 @@ const Dashboard = () => {
               )}
 
               {orders.map((order) => (
-                <Order key={order.id}>
+                <Orders key={order.id}>
                   <div>
                     <strong>{order.username}</strong>
                     <strong>{order.payment}</strong>
                     <strong>{order.price}</strong>
                   </div>
-                </Order>
+                </Orders>
               ))}
             </Section>
           </List>

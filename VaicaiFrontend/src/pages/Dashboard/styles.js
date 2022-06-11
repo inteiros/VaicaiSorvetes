@@ -162,7 +162,7 @@ export const Provider = styled.div`
   }
 `;
 
-export const Order = styled.div`
+export const Orders = styled.div`
   display: flex;
   align-items: center;
 

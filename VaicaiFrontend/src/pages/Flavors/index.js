@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import {
@@ -11,6 +11,8 @@ import {
   Section,
   Flavor,
 } from './styles';
+import { FiPower } from 'react-icons/fi';
+import Button from '../../components/Button';
 import logoImg from '../../assets/logo.png';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
@@ -32,16 +34,16 @@ const Dashboard = () => {
   }, [provider_id]);
 
   const handleCarrinho = useCallback(async(Id) => {
-    setCarrinho([Id, ...rest]);
-  });
+    setCarrinho([Id, ...carrinho]);
+  }, [carrinho]);
 
-  const calcPreco = () => {
-    return carrinho.length() * 3; // to do
-  }
+  //const calcPreco = () => {
+  //  return carrinho.length() * 3; // to do
+  //}
 
   const handlePedido = useCallback(async() => {
-    await api.post('/orders', provider_id, user.id, user.name, user.payment, flavors, calcPreco());
-  });
+    await api.post('/orders', provider_id, user.id, user.name, user.payment, flavors, carrinho.length() * 3);
+  }, [flavors, provider_id, user.id, user.name, user.payment, carrinho]);
 
   return (
     <>

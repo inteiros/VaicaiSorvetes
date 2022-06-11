@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, ChangeEvent } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FiMail, FiLock, FiUser, FiCamera, FiArrowLeft } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -87,11 +87,6 @@ const Profile = () => {
 
         api.patch('/users/avatar', data).then((response) => {
           updateUser(response.data);
-
-          addToast({
-            type: 'success',
-            title: 'Avatar atualizado!',
-          });
         });
       }
     },

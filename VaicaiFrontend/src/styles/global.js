@@ -6,13 +6,6 @@ export default createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     outline: 0;
-
-    .example::-webkit-scrollbar {
-    	display: none;
-    }
-    .example {
-    -ms-overflow-style: none;
-    }
   }
 
   body {
@@ -24,7 +17,7 @@ export default createGlobalStyle`
     display: none;
 }
 
-    overflow-x: hidden;
+    
   }
 
   body, input, button {

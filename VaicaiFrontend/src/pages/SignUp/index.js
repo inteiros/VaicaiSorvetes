@@ -2,6 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
+import { FiMail, FiLock, FiUser, FiCamera, FiArrowLeft, FiDollarSign, FiHome } from 'react-icons/fi';
 
 import api from '../../services/api';
 
@@ -29,6 +30,7 @@ const SignUp = () => {
           password: Yup.string().min(6, 'Minimo de 6 digitos'),
           address: Yup.string(),
           payment: Yup.string(),
+          pic: Yup.string(),
           isProvider: Yup.boolean()
         });
 
@@ -70,8 +72,9 @@ const SignUp = () => {
               type="password"
               placeholder="Senha"
             />
-            <Input name="address" icon={FiMail} placeholder="E-mail" />
-            <Input name="payment" icon={FiMail} placeholder="E-mail" />
+            <Input name="address" icon={FiHome} placeholder="Endereço" />
+            <Input name="payment" icon={FiDollarSign} placeholder="Pagamento" />
+            <Input name="pic" icon={FiCamera} placeholder="Foto de perfil" />
             <input type="checkbox" id="c" value={true} />
             <label for="c">Cadastrar como loja</label>
 

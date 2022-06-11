@@ -17,7 +17,7 @@ export const Content = styled.div`
   justify-content: center;
 
   width: 100%;
-  max-width: 700px;
+  max-width: 1000px;
 `;
 
 const appearFromLeft = keyframes`
@@ -62,9 +62,10 @@ export const AnimationContainer = styled.div`
   }
 
   > a {
-    color: #ff9000;
+    color: #fff;
     display: block;
-    margin-top: 24px;
+    margin-top: -50px;
+    margin-left: -50px;
     text-decoration: none;
     transition: color 0.2s;
 
@@ -75,13 +76,13 @@ export const AnimationContainer = styled.div`
       margin-right: 16px;
     }
     &:hover {
-      color: ${shade(0.2, '#ff9000')};
+      color: ${shade(0.2, '#fff')};
     }
   }
 `;
 
 export const Background = styled.div`
   flex: 1;
-  background: url(${signInBackgroundImg}) no-repeat center;
-  background-size: cover;
+  background: url(${signInBackgroundImg}) no-repeat right;
+  background-size: 500px;
 `;

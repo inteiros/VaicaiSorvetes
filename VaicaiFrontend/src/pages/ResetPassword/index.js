@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import { FiLock } from 'react-icons/fi';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
@@ -35,15 +36,6 @@ const ResetPassword = () => {
         });
 
         const token = location.search.replace('?token=', '');
-
-        if (!token) {
-          addToast({
-            type: 'error',
-            title: 'Erro ao resetar senha',
-            description:
-              'Ocorreu um erro ao resetar sua senha, tente novamente',
-          });
-        }
 
         await api.post('/password/reset', {
           password: data.password,
