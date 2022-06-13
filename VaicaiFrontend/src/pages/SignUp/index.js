@@ -11,9 +11,12 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import logoImg from '../../assets/logo.png';
 import { Container, Content, AnimationContainer, Background } from './styles';
+import CheckBoxInput from "../../components/CheckboxInput";
 
 const SignUp = () => {
   const formRef = useRef(null);
+
+  const checkboxOptions = [{ id: "isProvider", value: true, label: "Loja"}];
 
   const history = useHistory();
 
@@ -34,9 +37,13 @@ const SignUp = () => {
           isProvider: Yup.boolean()
         });
 
+        data.isProvider = data.isProvider[0];
+
         await schema.validate(data, {
           abortEarly: false,
         });
+
+        console.log(data);
 
         await api.post('/users', data);
 
@@ -75,8 +82,7 @@ const SignUp = () => {
             <Input name="address" icon={FiHome} placeholder="Endereço" />
             <Input name="payment" icon={FiDollarSign} placeholder="Pagamento" />
             <Input name="pic" icon={FiCamera} placeholder="Foto de perfil" />
-            <input type="checkbox" id="c" value={true} />
-            <label for="c">Cadastrar como loja</label>
+            <CheckBoxInput name="isProvider" options={checkboxOptions} />
 
             <Button type="submit">Cadastrar</Button>
           </Form>

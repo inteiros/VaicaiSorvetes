@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import Tooltip from './Tooltip/index';
 
 export const Container = styled.div`
-  background: #b3b3b3;
+  background: #fff;
   border-radius: 10px;
   padding: 16px;
   width: 100%;
@@ -42,7 +42,7 @@ export const Container = styled.div`
     background: transparent;
     flex: 1;
     border: 0;
-    color: #f4ede8;
+    color: #100;
 
     &::placeholder {
       color: #8c8c8c;
