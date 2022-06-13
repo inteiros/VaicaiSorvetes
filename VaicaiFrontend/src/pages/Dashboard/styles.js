@@ -5,7 +5,7 @@ export const Container = styled.div``;
 
 export const Header = styled.header`
   padding: 32px 0;
-  background: #28262e;
+  background: #ff9000;
 `;
 
 export const HeaderContent = styled.div`
@@ -104,7 +104,7 @@ export const Section = styled.section`
   margin-top: 48px;
 
   > strong {
-    color: #999591;
+    color: #fff;
     font-size: 20px;
     line-height: 26px;
     border-bottom: 1px solid #3e3b47;
@@ -114,7 +114,7 @@ export const Section = styled.section`
   }
 
   > p {
-    color: #999591;
+    color: #fff;
   }
 `;
 
@@ -141,7 +141,7 @@ export const Provider = styled.div`
 
   div {
     flex: 1;
-    background: #3e3b47;
+    background: #ff9000;
     display: flex;
     align-items: center;
     padding: 16px 24px;

@@ -5,8 +5,8 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [data, setData] = useState(() => {
-    const token = localStorage.getItem('@InvesTinder:token');
-    const user = localStorage.getItem('@InvesTinder:user');
+    const token = localStorage.getItem('@Vaicai:token');
+    const user = localStorage.getItem('@Vaicai:user');
 
     if (token && user) {
       return { token, user: JSON.parse(user) };
@@ -16,22 +16,22 @@ export const AuthProvider = ({ children }) => {
   });
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@InvesTinder:token');
-    localStorage.removeItem('@InvesTinder:user');
+    localStorage.removeItem('@Vaicai:token');
+    localStorage.removeItem('@Vaicai:user');
 
     setData({});
   }, []);
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('login', {
+    const response = await api.post('sessions', {
       email,
       password,
     });
 
     const { token, user } = response.data;
 
-    localStorage.setItem('@InvesTinder:token', token);
-    localStorage.setItem('@InvesTinder:user', JSON.stringify(user));
+    localStorage.setItem('@Vaicai:token', token);
+    localStorage.setItem('@Vaicai:user', JSON.stringify(user));
 
     setData({ token, user });
   }, []);
