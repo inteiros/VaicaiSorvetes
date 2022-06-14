@@ -16,7 +16,7 @@ import CheckBoxInput from "../../components/CheckboxInput";
 const SignUp = () => {
   const formRef = useRef(null);
 
-  const checkboxOptions = [{ id: "isProvider", value: true, label: "Loja"}];
+  const checkboxOptions = [{ id: "isProvider", value: true, label: "Loja" }];
 
   const history = useHistory();
 
@@ -38,6 +38,9 @@ const SignUp = () => {
         });
 
         data.isProvider = data.isProvider[0];
+        if(!data.isProvider){
+          data.isProvider = false;
+        }
 
         await schema.validate(data, {
           abortEarly: false,
@@ -68,7 +71,7 @@ const SignUp = () => {
         <AnimationContainer>
           <img src={logoImg} alt="Vaicai" />
 
-          <Form ref={formRef} onSubmit={handleSubmit}>
+          <Form ref={formRef} onSubmit={handleSubmit} initialData={{ isProvider: false }}>
             <h1>Crie sua conta</h1>
 
             <Input name="name" icon={FiUser} placeholder="Nome" />

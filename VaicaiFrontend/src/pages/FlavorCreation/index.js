@@ -34,13 +34,16 @@ const Dashboard = () => {
           name: Yup.string().required('Nome do sabor obrigatório'),
           price: Yup.string(),
           pic: Yup.string(),
+          provider_id: Yup.string()
         });
+
+        data.provider_id = user.id;
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await api.post('/flavors/new', data);
+        await api.post('/flavors', data);
 
         history.push('/');
       } catch (err) {
@@ -53,7 +56,7 @@ const Dashboard = () => {
         }
       }
     },
-    [history],
+    [history, user.id],
   );
 
   return (

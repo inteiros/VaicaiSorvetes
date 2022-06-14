@@ -14,6 +14,22 @@ export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
 
+  > a {
+    span {
+      color: #fff;
+      margin: 5px;
+    }
+
+    margin-left: 625px;
+    border-radius: 5px;
+    height: 24px;
+    align-items: center;
+    text-decoration: none;
+    &:hover {
+      background: ${shade(0.2, '#ff9000')};
+    }
+  }
+
   > img {
     height: 80px;
   }
@@ -24,7 +40,7 @@ export const HeaderContent = styled.div`
     border: 0;
 
     svg {
-      color: #999591;
+      color: #fff;
       width: 20px;
       height: 20px;
     }

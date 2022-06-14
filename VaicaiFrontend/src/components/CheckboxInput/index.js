@@ -32,7 +32,6 @@ const CheckboxInput = ({ name, options, ...rest }) => {
       {options.map(option => (
         <label htmlFor={option.id} key={option.id}>
           <input
-            defaultChecked={defaultValue.includes(option.id)}
             ref={ref => {
               inputRefs.current.push(ref);
             }}

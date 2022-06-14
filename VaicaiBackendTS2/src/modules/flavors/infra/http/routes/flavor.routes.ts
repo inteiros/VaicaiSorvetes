@@ -8,12 +8,12 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 const flavorRouter = Router();
 const flavorController = new FlavorController();
 
-flavorRouter.use(ensureAuthenticated);
+//flavorRouter.use(ensureAuthenticated);
 
 flavorRouter.get('/list', flavorController.list);
 flavorRouter.get('/listbyid', flavorController.listId);
-flavorRouter.put(
-    '/new',
+flavorRouter.post(
+    '/',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),

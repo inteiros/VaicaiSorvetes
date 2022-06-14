@@ -25,24 +25,24 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    api
-      .get(`/providers`, {
-        params: user.id,
-      })
-      .then((response) => {
-        setProviders(response.data);
-      });
-  }, [user.id]);
-
-  useEffect(() => {
-    api
+    if(user.isProvider){
+      api
       .get(`/loja/pedidos`, {
         params: user.id,
       })
       .then((response) => {
         setOrders(response.data);
       });
-  }, [user.id]);
+    } else {
+      api
+      .get(`/providers`, {
+        params: user.id,
+      })
+      .then((response) => {
+        setProviders(response.data);
+      });
+    }
+  }, [user.id, user.isProvider]);
 
   return (
     <>
@@ -63,12 +63,12 @@ const Dashboard = () => {
             </Profile>
 
             {user.isProvider === true && (
-              <Link to="/sabores">
-                <strong>Cadastrar sabores</strong>
+              <Link to="/flavoradd">
+                <span>Cadastrar sabores</span>
               </Link>
             )}
 
-            <button type="button" onClick={signOut}>
+            <button type="button" onClick={signOut} >
               <FiPower />
             </button>
           </HeaderContent>
