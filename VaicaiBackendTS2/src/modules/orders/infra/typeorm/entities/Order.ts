@@ -19,6 +19,9 @@ class Order {
     @Column()
     provider_id: string;
 
+    @Column()
+    name: string;
+
     @ManyToOne(() => User)
     @JoinColumn({ name: 'provider_id' })
     provider: User;

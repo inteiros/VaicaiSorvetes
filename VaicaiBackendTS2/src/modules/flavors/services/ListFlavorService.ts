@@ -23,7 +23,7 @@ class ListFlavorServices {
         private cacheProvider: ICacheProvider,
     ) {}
 
-    public async execute({ provider_id }: IRequest): Promise<Flavor[] | null> {
+    public async execute(provider_id: string): Promise<Flavor[] | null> {
         let flavors = await this.cacheProvider.recover<Flavor[]>(
             `flavors-list:${provider_id}`,
         );

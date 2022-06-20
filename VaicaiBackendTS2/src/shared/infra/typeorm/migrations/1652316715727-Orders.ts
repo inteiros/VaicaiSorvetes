@@ -80,6 +80,5 @@ export class Orders1652316715727 implements MigrationInterface {
 
         await queryRunner.dropForeignKey('orders', 'OrderProvider');
         await queryRunner.dropForeignKey('orders', 'OrderUser');
-        await queryRunner.dropForeignKey('orders', 'OrderFlavors');
     }
 }

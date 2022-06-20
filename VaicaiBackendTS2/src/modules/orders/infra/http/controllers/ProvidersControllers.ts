@@ -9,12 +9,12 @@ export default class ProvidersController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const user_id = request.user.id;
+        const { user_id } = request.query;
 
         const listProviders = container.resolve(ListProvidersService);
 
         const providers = await listProviders.execute({
-            user_id,
+            user_id: String(user_id),
         });
 
         return response.json(classToClass(providers));

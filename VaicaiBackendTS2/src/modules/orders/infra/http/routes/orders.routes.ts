@@ -12,7 +12,7 @@ const ordersController = new OrdersController();
 const providerOrdersController = new ProviderOrdersController();
 const userOrdersController = new UserOrdersController();
 
-ordersRouter.use(ensureAuthenticated);
+//ordersRouter.use(ensureAuthenticated);
 
 ordersRouter.post(
     '/',
@@ -20,15 +20,23 @@ ordersRouter.post(
         [Segments.BODY]: {
             provider_id: Joi.string().uuid().required(),
             user_id: Joi.string().uuid().required(),
+            name: Joi.string().required(),
             username: Joi.string().required(),
             payment: Joi.string().required(),
-            flavors_id: Joi.string().required(),
-            price: Joi.string(),
+            flavors: Joi.string().required(),
+            price: Joi.string().required(),
         },
     }),
     ordersController.create,
 );
 ordersRouter.get('/loja/pedidos', providerOrdersController.index);
 ordersRouter.get('/pedidos', userOrdersController.index);
+
+ordersRouter.delete('/del/:order_id', celebrate({
+    [Segments.PARAMS]: {
+        order_id: Joi.string().uuid().required(),
+    },
+    }), ordersController.delete);
+
 
 export default ordersRouter;

@@ -8,7 +8,7 @@ const providersRouter = Router();
 
 const providersController = new ProvidersController();
 
-providersRouter.use(ensureAuthenticated);
+//providersRouter.use(ensureAuthenticated);
 
 providersRouter.get('/', providersController.index);
 

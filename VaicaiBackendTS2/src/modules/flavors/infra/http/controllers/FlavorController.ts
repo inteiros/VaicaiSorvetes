@@ -28,10 +28,11 @@ export default class FlavorsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { provider_id } = request.body;
+        const { provider_id }  = request.query;
         const listFlavors = container.resolve(ListFlavorService);
 
-        const flavors = await listFlavors.execute(provider_id);
+        const providerid = String(provider_id);
+        const flavors = await listFlavors.execute(providerid);
 
         return response.json(classToClass(flavors));
     }

@@ -9,6 +9,9 @@ import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersR
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
+
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
@@ -23,6 +26,11 @@ container.registerSingleton<IOrdersRepository>(
 container.registerSingleton<IUsersRepository>(
     'UsersRepository',
     delay(() => UsersRepository),
+);
+
+container.registerSingleton<INotificationsRepository>(
+    'NotificationsRepository',
+    delay(() => NotificationsRepository),
 );
 
 container.registerSingleton<IUserTokensRepository>(

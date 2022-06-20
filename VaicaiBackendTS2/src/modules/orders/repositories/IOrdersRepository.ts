@@ -9,5 +9,5 @@ export default interface IOrdersRepository {
     ): Promise<Order | undefined>;
     findAllFromProvider(provider_id: string): Promise<Order[]>;
     findFromUser(user_id: string): Promise<Order[]>;
-    delete(user_id: string): Promise<void>;
+    delete(order_id: string): Promise<void>;
 }

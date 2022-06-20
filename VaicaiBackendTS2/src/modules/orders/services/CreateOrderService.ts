@@ -1,4 +1,3 @@
-import { startOfHour, isBefore, getHours, format } from 'date-fns';
 import { injectable, inject } from 'tsyringe';
 
 import Order from '@modules/orders/infra/typeorm/entities/Order';
@@ -11,9 +10,10 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 interface IRequest {
     provider_id: string;
     user_id: string;
+    name: string;
     username: string;
     payment: string;
-    flavors_id: string[];
+    flavors: string;
     price: string;
 }
 
@@ -33,9 +33,10 @@ class CreateOrderService {
     public async execute({
         provider_id,
         user_id,
+        name,
         username,
         payment,
-        flavors_id,
+        flavors,
         price
     }: IRequest): Promise<Order> {
         if (user_id === provider_id) {
@@ -45,9 +46,10 @@ class CreateOrderService {
         const order = await this.ordersRepository.create({
             provider_id,
             user_id,
+            name,
             username,
             payment,
-            flavors_id,
+            flavors,
             price
         });
 

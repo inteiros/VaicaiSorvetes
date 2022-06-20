@@ -45,17 +45,19 @@ class OrdersRepository implements IOrdersRespository {
     public async create({
         provider_id,
         user_id,
+        name,
         username,
         payment,
-        flavors_id,
+        flavors,
         price,
     }: ICreateOrderDTO): Promise<Order> {
         const order = this.ormRepository.create({
             provider_id,
             user_id,
+            name,
             username,
             payment,
-            flavors_id,
+            flavors,
             price
         });
 
@@ -64,12 +66,8 @@ class OrdersRepository implements IOrdersRespository {
         return order;
     }
 
-    public async delete(user_id: string): Promise<void> {
-        const order = await this.ormRepository.find({
-            where: user_id
-        });
-
-        await this.ormRepository.remove(order);
+    public async delete(order_id: string): Promise<void> {
+        await this.ormRepository.delete({ id: order_id });
     }
 }
 

@@ -8,7 +8,7 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 const profileRouter = Router();
 const profileController = new ProfileController();
 
-profileRouter.use(ensureAuthenticated);
+//profileRouter.use(ensureAuthenticated);
 
 profileRouter.get('/', profileController.show);
 profileRouter.put(

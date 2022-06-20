@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -18,32 +18,52 @@ import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 
 const Dashboard = () => {
-  const { provider_id } = this.props.location.state
+  const data = useLocation();
+  const history = useHistory();
   const { signOut, user } = useAuth();
   const [flavors, setFlavors] = useState([]);
   const [carrinho, setCarrinho] = useState([]);
 
+  const provider_id = data.state.loja;
+  const loja = provider_id;
+
   useEffect(() => {
-    api
+    if(user){
+      api
       .get(`/flavors/list`, {
-        body: provider_id,
+        params: { provider_id: loja },
       })
       .then((response) => {
         setFlavors(response.data);
       });
-  }, [provider_id]);
+    }
+  }, [loja, user]);
 
-  const handleCarrinho = useCallback(async(Id) => {
-    setCarrinho([Id, ...carrinho]);
+  const handleCarrinho = useCallback(async(nomes) => {
+    setCarrinho([nomes, ...carrinho]);
   }, [carrinho]);
 
-  //const calcPreco = () => {
-  //  return carrinho.length() * 3; // to do
-  //}
+  const flavorsname = () => {
+    let str = "";
+    str = carrinho.join(" 1x, ");
+    return str
+  }
 
-  const handlePedido = useCallback(async() => {
-    await api.post('/orders', provider_id, user.id, user.name, user.payment, flavors, carrinho.length() * 3);
-  }, [flavors, provider_id, user.id, user.name, user.payment, carrinho]);
+  const calcPreco = () => {
+    const price = carrinho.length * 3;
+    return price
+  }
+
+  const price = String(calcPreco() + ",00");
+  console.log(price);
+  const flavorsnames = flavorsname();
+
+  const handlePedido = async(provider_id, user, price) => {
+    const name = "Order from " + user.name;
+    console.log(provider_id, user.id, user.name, name, user.payment, flavorsnames, price)
+    await api.post('/pedidos', { provider_id, user_id: user.id, name, username: user.name, payment: user.payment, flavors: flavorsnames, price });
+    history.push("/");
+  };
 
   return (
     <>
@@ -84,7 +104,7 @@ const Dashboard = () => {
               )}
 
               {flavors.map((flavor) => (
-                <Flavor onClick={handleCarrinho(flavor.id)} key={flavor.id}>
+                <Flavor key={flavor.id}>
                   <div>
                     <img
                       src={flavor.pic}
@@ -92,15 +112,16 @@ const Dashboard = () => {
                     />
 
                     <strong>{flavor.name}</strong>
-                    <strong>{flavor.price}</strong>
+                    <strong>R${flavor.price},00</strong>
                   </div>
+                  <Button onClick={() => handleCarrinho(flavor.name)}> Adcionar sabor </Button>
                 </Flavor>
               ))}
             </Section>
           </List>
           )}
         </Content>
-        <Button onClick={handlePedido()} >Realizar compra</Button>
+        <Button onClick={() => handlePedido(provider_id, user, price)}> Realizar compra </Button>
       </Container>
     </>
   );

@@ -13,6 +13,8 @@ import {
   Orders,
 } from './styles';
 
+import Button from '../../components/Button';
+
 import { FiPower } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.png';
@@ -25,24 +27,30 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    if(user.isProvider){
+    if(user.isProvider && user.id !== undefined){
       api
-      .get(`/loja/pedidos`, {
-        params: user.id,
+      .get(`/pedidos/loja/pedidos`, {
+        params: { provider_id: user.id },
       })
       .then((response) => {
         setOrders(response.data);
       });
     } else {
-      api
+      if(user.id !== undefined){
+        api
       .get(`/providers`, {
-        params: user.id,
+        params: { user_id: user.id },
       })
       .then((response) => {
         setProviders(response.data);
       });
+      }
     }
   }, [user.id, user.isProvider]);
+
+  const handleDelete = async(order_id) => {
+    await api.delete(`/pedidos/del/${order_id}`);
+  };
 
   return (
     <>
@@ -52,7 +60,7 @@ const Dashboard = () => {
             <img src={logoImg} alt="Vaicai" />
 
             <Profile>
-              <img src={user.avatar_url} alt={user.name} />
+              <img src={user.avatar} alt={user.name} />
 
               <div>
                 <span>Bem-vindo,</span>
@@ -85,12 +93,12 @@ const Dashboard = () => {
               {providers.map((provider) => (
                 <Link to={{
                   pathname: "/flavors",
-                  state: provider.id
+                  state: { loja: provider.id}
                 }}>
                 <Provider key={provider.id}>
                   <div>
                     <img
-                      src={provider.avatar_url}
+                      src={provider.avatar}
                       alt={provider.name}
                     />
 
@@ -114,9 +122,11 @@ const Dashboard = () => {
                 <Orders key={order.id}>
                   <div>
                     <strong>{order.username}</strong>
+                    <strong>{order.flavors}</strong>
                     <strong>{order.payment}</strong>
                     <strong>{order.price}</strong>
                   </div>
+                  <Button onClick={() => handleDelete(order.id)}> Pedido entregue </Button>
                 </Orders>
               ))}
             </Section>

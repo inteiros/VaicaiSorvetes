@@ -23,7 +23,7 @@ const Routes = () => {
 
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/profile" component={Profile} isPrivate />
-        <Route path="/flavor" component={Flavors} isPrivate />
+        <Route path="/flavors" component={Flavors} isPrivate />
         <Route path="/flavoradd" component={FlavorCreation} isPrivate />
       </Switch>
     </>

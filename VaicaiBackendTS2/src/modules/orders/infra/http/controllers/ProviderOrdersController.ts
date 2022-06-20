@@ -9,14 +9,14 @@ export default class ProviderOrdersController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const provider_id = request.user.id;
+        const { provider_id } = request.query;
 
         const listOrders = container.resolve(
             ListProviderOrdersService,
         );
 
         const orders = await listOrders.execute({
-            provider_id,
+            provider_id: String(provider_id),
         });
 
         return response.json(classToClass(orders));
