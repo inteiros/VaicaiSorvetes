@@ -60,7 +60,8 @@ const Dashboard = () => {
             <img src={logoImg} alt="Vaicai" />
 
             <Profile>
-              <img src={user.avatar} alt={user.name} />
+              <img src={user.avatar}
+              alt={""} />
 
               <div>
                 <span>Bem-vindo,</span>
@@ -98,11 +99,11 @@ const Dashboard = () => {
                 <Provider key={provider.id}>
                   <div>
                     <img
-                      src={provider.avatar}
-                      alt={provider.name}
-                    />
+                      src={provider.avatar} 
+                      alt={""} />
 
                     <strong>{provider.name}</strong>
+                    <strong>Endereço: {provider.address}</strong>
                   </div>
                 </Provider>
                 </Link>
@@ -121,12 +122,13 @@ const Dashboard = () => {
               {orders.map((order) => (
                 <Orders key={order.id}>
                   <div>
-                    <strong>{order.username}</strong>
+                    <strong>{order.name}</strong>
                     <strong>{order.flavors}</strong>
                     <strong>{order.payment}</strong>
-                    <strong>{order.price}</strong>
-                  </div>
+                    <strong>R${order.price}</strong>
+
                   <Button onClick={() => handleDelete(order.id)}> Pedido entregue </Button>
+                  </div>
                 </Orders>
               ))}
             </Section>

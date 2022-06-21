@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { shade } from 'polished';
 
 export default createGlobalStyle`
   * {
@@ -9,7 +10,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background: linear-gradient(to bottom right, #f46e00, #ff8d0b);
+    background: ${shade(0.1, '#ff9000')};
     color: #FFF;
     -webkit-font-smoothing: antialiased;
 
@@ -21,7 +22,7 @@ export default createGlobalStyle`
   }
 
   body, input, button {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Poppins', serif;
     font-size: 16px;
   }
 

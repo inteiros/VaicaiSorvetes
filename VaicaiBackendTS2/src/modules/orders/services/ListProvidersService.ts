@@ -20,18 +20,21 @@ class ListProvidersServices {
     ) {}
 
     public async execute({ user_id }: IRequest): Promise<User[] | null> {
-        let users = await this.cacheProvider.recover<User[]>(
-            `providers-list:${user_id}`,
-        );
+        // let users = await this.cacheProvider.recover<User[]>(
+        //     `providers-list:${user_id}`,
+        // );
 
-        if (!users) {
-            users = await this.usersRepository.findAllProviders();
+        let users: User[] | null = []
+        users = await this.usersRepository.findAllProviders();
 
-            await this.cacheProvider.save(
-                `providers-list:${user_id}`,
-                classToClass(users),
-            );
-        }
+        // if (!users) {
+        //     users = await this.usersRepository.findAllProviders();
+
+        //     // await this.cacheProvider.save(
+        //     //     `providers-list:${user_id}`,
+        //     //     classToClass(users),
+        //     // );
+        // }
 
         return users;
     }

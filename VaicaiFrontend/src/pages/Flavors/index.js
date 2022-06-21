@@ -11,7 +11,7 @@ import {
   Section,
   Flavor,
 } from './styles';
-import { FiPower } from 'react-icons/fi';
+import { FiArrowLeft } from 'react-icons/fi';
 import Button from '../../components/Button';
 import logoImg from '../../assets/logo.png';
 import { useAuth } from '../../hooks/auth';
@@ -20,7 +20,7 @@ import api from '../../services/api';
 const Dashboard = () => {
   const data = useLocation();
   const history = useHistory();
-  const { signOut, user } = useAuth();
+  const { user } = useAuth();
   const [flavors, setFlavors] = useState([]);
   const [carrinho, setCarrinho] = useState([]);
 
@@ -59,7 +59,7 @@ const Dashboard = () => {
   const flavorsnames = flavorsname();
 
   const handlePedido = async(provider_id, user, price) => {
-    const name = "Order from " + user.name;
+    const name = "Endereço: " + user.address;
     console.log(provider_id, user.id, user.name, name, user.payment, flavorsnames, price)
     await api.post('/pedidos', { provider_id, user_id: user.id, name, username: user.name, payment: user.payment, flavors: flavorsnames, price });
     history.push("/");
@@ -73,7 +73,8 @@ const Dashboard = () => {
             <img src={logoImg} alt="Vaicai" />
 
             <Profile>
-              <img src={user.avatar_url} alt={user.name} />
+            <img src={user.avatar}
+              alt={""} />
 
               <div>
                 <span>Bem-vindo,</span>
@@ -82,16 +83,9 @@ const Dashboard = () => {
                 </Link>
               </div>
             </Profile>
-
-            {user.isProvider === true && (
-              <Link to="/sabores">
-                <strong>Cadastrar sabores</strong>
-              </Link>
-            )}
-
-            <button type="button" onClick={signOut}>
-              <FiPower />
-            </button>
+            <Link to="/dashboard">
+            <FiArrowLeft />
+          </Link>
           </HeaderContent>
         </Header>
 
@@ -113,8 +107,9 @@ const Dashboard = () => {
 
                     <strong>{flavor.name}</strong>
                     <strong>R${flavor.price},00</strong>
+
+                    <Button onClick={() => handleCarrinho(flavor.name)}> Adcionar sabor </Button>
                   </div>
-                  <Button onClick={() => handleCarrinho(flavor.name)}> Adcionar sabor </Button>
                 </Flavor>
               ))}
             </Section>

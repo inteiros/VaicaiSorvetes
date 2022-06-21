@@ -10,7 +10,7 @@ import {
   Content,
 } from './styles';
 import logoImg from '../../assets/logo.png';
-import { FiAlertCircle, FiCamera, FiDollarSign, FiPower } from 'react-icons/fi';
+import { FiAlertCircle, FiArrowLeft, FiCamera, FiDollarSign } from 'react-icons/fi';
 import { useAuth } from '../../hooks/auth';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -21,7 +21,7 @@ import Button from '../../components/Button';
 
 
 const Dashboard = () => {
-  const { signOut, user } = useAuth();
+  const { user } = useAuth();
   const formRef = useRef(null);
   const history = useHistory();
 
@@ -67,7 +67,8 @@ const Dashboard = () => {
             <img src={logoImg} alt="Vaicai" />
 
             <Profile>
-              <img src={user.avatar_url} alt={user.name} />
+            <img src={user.avatar}
+              alt={""} />
 
               <div>
                 <span>Bem-vindo,</span>
@@ -77,15 +78,9 @@ const Dashboard = () => {
               </div>
             </Profile>
 
-            {user.isProvider === true && (
-              <Link to="/">
-                <strong>Voltar a pagina inicial</strong>
-              </Link>
-            )}
-
-            <button type="button" onClick={signOut}>
-              <FiPower />
-            </button>
+            <Link to="/dashboard">
+            <FiArrowLeft />
+            </Link>
           </HeaderContent>
         </Header>
 

@@ -132,11 +132,20 @@ export const Section = styled.section`
   > p {
     color: #fff;
   }
+
+  a {
+    text-decoration:none
+  }
 `;
 
 export const Provider = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 30px;
+  
+  a {
+    text-decoration:none
+  }
 
   & + div {
     margin-top: 16px;
@@ -171,7 +180,13 @@ export const Provider = styled.div`
     }
 
     strong {
-      margin-left: 24px;
+      margin-left: 25px;
+      color: #f4ede8;
+      font-size: 20px;
+    }
+    strong + strong {
+      margin-left: auto;
+      margin-right: 100px;
       color: #f4ede8;
       font-size: 20px;
     }
@@ -200,8 +215,12 @@ export const Orders = styled.div`
   }
 
   div {
+    button {
+      width: 300px;
+      margin-left: 15px;
+    }
     flex: 1;
-    background: #3e3b47;
+    background: #ff9000;
     display: flex;
     align-items: center;
     padding: 16px 24px;
@@ -219,60 +238,5 @@ export const Orders = styled.div`
       color: #f4ede8;
       font-size: 20px;
     }
-  }
-`;
-
-export const Calendar = styled.aside`
-  width: 380px;
-
-  .DayPicker {
-    background: #28262e;
-    border-radius: 10px;
-  }
-
-  .DayPicker-wrapper {
-    padding-bottom: 0;
-  }
-
-  .DayPicker,
-  .DayPicker-Month {
-    width: 100%;
-  }
-
-  .DayPicker-Month {
-    border-collapse: separate;
-    border-spacing: 8px;
-    margin: 16px;
-  }
-
-  .DayPicker-Day {
-    width: 40px;
-    height: 40px;
-  }
-
-  .DayPicker-Day--available:not(.DayPicker-Day--outside) {
-    background: #3e3b47;
-    border-radius: 10px;
-    color: #fff;
-  }
-
-  .DayPicker:not(.DayPicker--interactionDisabled)
-    .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-    background: ${shade(0.2, '#3e3b47')};
-  }
-
-  .DayPicker-Day--today {
-    font-weight: normal;
-  }
-
-  .DayPicker-Day--disabled {
-    color: #666360 !important;
-    background: transparent !important;
-  }
-
-  .DayPicker-Day--selected {
-    background: #ff9000 !important;
-    border-radius: 10px;
-    color: #232129 !important;
   }
 `;

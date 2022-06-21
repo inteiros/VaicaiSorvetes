@@ -22,7 +22,7 @@ usersRouter.post(
             password: Joi.string().required(),
             address: Joi.string().required(),
             payment: Joi.string().required(),
-            pic: Joi.string().required(),
+            pic: Joi.string(),
             isProvider: Joi.boolean().required(),
         },
     }),
