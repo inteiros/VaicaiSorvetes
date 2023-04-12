@@ -82,7 +82,7 @@ https://docs.google.com/document/d/e/2PACX-1vRHLOQMnKJa0xQrrhDqT6xVGs7yEd2XzhMRJ
 - Linguagem de Programação: JavaScript e TypeScript;
 - Frameworks: Express.js e React;
 - ORM: TypeORM;
-- Banco Dados: PostgreSQL, Redis alpine, MongoDB;
+- Banco de Dados: PostgreSQL, Redis alpine, MongoDB;
 - Repositório: https://github.com/JoaoEler/VaicaiSorvetes;
 - Diagramas: Astah 7.1.0;
 - Testes automatizados: Jest;
