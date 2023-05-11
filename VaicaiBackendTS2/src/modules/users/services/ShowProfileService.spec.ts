@@ -14,17 +14,20 @@ describe('ShowProfile', () => {
 
     it('should be able to show the profile', async () => {
         const user = await fakeUserRepository.create({
-            name: 'John Doe',
-            email: 'johndoe@example.com',
+            name: 'Joao',
+            email: 'joao@example.com',
             password: '123456',
+            address: 'RJ',
+            payment: 'Cartao',
+            isProvider: false
         });
 
         const profile = await showProfile.execute({
             user_id: user.id,
         });
 
-        expect(profile.name).toBe('John Doe');
-        expect(profile.email).toBe('johndoe@example.com');
+        expect(profile.name).toBe('Joao');
+        expect(profile.email).toBe('joao@example.com');
     });
 
     it('should not be able to show the profile from a non-existing user', async () => {
