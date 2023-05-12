@@ -1,42 +1,47 @@
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-import FakeAppointmentRepository from '../repositories/fakes/FakeAppointmentsRepository';
-import ListProviderAppointmentsServices from './ListProviderOrdersService';
+import FakeOrdersRepository from '../repositories/fakes/FakeOrdersRepository';
+import ListProviderOrdersServices from './ListProviderOrdersService';
 
 let fakeCacheProvider: FakeCacheProvider;
-let listProviderAppointmentsServices: ListProviderAppointmentsServices;
-let fakeAppointmentRepository: FakeAppointmentRepository;
+let listProviderOrdersServices: ListProviderOrdersServices;
+let fakeOrdersRepository: FakeOrdersRepository;
 
-describe('ListProviderAppointments', () => {
+describe('ListProviderOrders', () => {
     beforeEach(() => {
         fakeCacheProvider = new FakeCacheProvider();
-        fakeAppointmentRepository = new FakeAppointmentRepository();
+        fakeOrdersRepository = new FakeOrdersRepository();
 
-        listProviderAppointmentsServices = new ListProviderAppointmentsServices(
-            fakeAppointmentRepository,
+        listProviderOrdersServices = new ListProviderOrdersServices(
+            fakeOrdersRepository,
             fakeCacheProvider,
         );
     });
 
-    it('should be able to list the appointments on a specific day', async () => {
-        const app1 = await fakeAppointmentRepository.create({
-            provider_id: 'provider',
-            user_id: 'user',
-            date: new Date(2020, 4, 20, 14, 0, 0),
+    it('should be able to list the orders from a provider', async () => {
+        const ord1 = await fakeOrdersRepository.create({
+            user_id: '12345678910',
+            provider_id: `123456`,
+            flavors: 'Morango',
+            price: 'R$3,00',
+            name: 'Joao',
+            username: 'Joao',
+            payment: 'Cartao',
         });
 
-        const app2 = await fakeAppointmentRepository.create({
-            provider_id: 'provider',
-            user_id: 'user',
-            date: new Date(2020, 4, 20, 15, 0, 0),
+        const ord2 = await fakeOrdersRepository.create({
+            user_id: '12345678910',
+            provider_id: `123456`,
+            flavors: 'Morango',
+            price: 'R$3,00',
+            name: 'Joao',
+            username: 'Joao',
+            payment: 'Cartao',
         });
 
-        const appointments = await listProviderAppointmentsServices.execute({
-            provider_id: 'provider',
-            year: 2020,
-            month: 5,
-            day: 20,
+        const orders = await listProviderOrdersServices.execute({
+            provider_id: `123456`,
         });
 
-        expect(appointments).toEqual([app1, app2]);
+        expect(orders).toEqual([ord1, ord2]);
     });
 });
