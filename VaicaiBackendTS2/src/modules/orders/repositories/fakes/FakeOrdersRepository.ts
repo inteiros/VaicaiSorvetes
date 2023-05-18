@@ -1,4 +1,5 @@
 import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 import IOrdersRespository from '@modules/orders/repositories/IOrdersRepository';
 
@@ -54,7 +55,7 @@ class OrdersRepository implements IOrdersRespository {
     }: ICreateOrderDTO): Promise<Order> {
         const order = new Order();
 
-        Object.assign(order, { provider_id, name, user_id, id: uuid(), username, payment, flavors, price });
+        Object.assign(order, { provider_id, name, user_id, id: v4(), username, payment, flavors, price });
 
         this.orders.push(order);
 
