@@ -6,4 +6,6 @@
 
 Para navegar pelo protótipo, utilize o comando:
 
-### `yarn start`
+```bash
+yarn start
+```
