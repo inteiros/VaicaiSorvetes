@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vaicai-backend
+  name: vaicai-frontend
 spec:
   destination:
     name: ''
     namespace: default
     server: 'https://kubernetes.default.svc'
   source:
-    path: VaicaiBackendTS2
+    path: VaicaiFrontend
     repoURL: 'https://github.com/JoaoEler/VaicaiSorvetes'
     targetRevision: HEAD
   sources: []
