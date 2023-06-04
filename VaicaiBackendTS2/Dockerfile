@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts-alpine AS build
 
 WORKDIR /app
 
@@ -8,8 +8,20 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3333
-
 RUN npm run build
 
-CMD [ "node", "dist/src/shared/infra/http/server.js" ]
+FROM node:lts-alpine AS production
+
+WORKDIR /app
+
+COPY --from=build /app .
+
+EXPOSE 3333
+
+CMD ["node", "dist/src/shared/infra/http/server.js"]
+
+FROM docker/compose:1.29.2 AS compose
+
+COPY docker-compose.yaml ./
+
+CMD ["docker-compose", "up"]
