@@ -101,7 +101,7 @@ spec:
           spec:
             containers:
               - name: frontend
-                image: registry-url/frontend-image:version
+                image: jgemendes/vaicai-frontend:v1.0
                 ports:
                   - containerPort: 3000
                     protocol: TCP
@@ -123,7 +123,7 @@ spec:
           spec:
             containers:
               - name: backend
-                image: registry-url/backend-image:version
+                image: jgemendes/vaicai-backend:v1.0
                 ports:
                   - containerPort: 3333
                     protocol: TCP

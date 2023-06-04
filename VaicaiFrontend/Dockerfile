@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 
-COPY package-lock.json ./
+# COPY package-lock.json ./
 
 COPY ./ ./
 
@@ -18,24 +18,24 @@ CMD ["npm", "run", "dev"]
 
 ## PROD
 
-FROM node:15-alpine AS builder
+# FROM node:15-alpine AS builder
 
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
-COPY package.json package.json
+# COPY package.json package.json
 
-RUN npm install
+# RUN npm install
 
-COPY . .
+# COPY . .
 
-RUN npm run build
+# RUN npm run build
 
-FROM nginx:alpine
+# FROM nginx:alpine
 
-WORKDIR /usr/share/nginx/html
+# WORKDIR /usr/share/nginx/html
 
-RUN rm -rf *
+# RUN rm -rf *
 
-COPY --from=builder /app/dist .
+# COPY --from=builder /usr/src/app/dist ./dist
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# ENTRYPOINT ["nginx", "-g", "daemon off;"]
