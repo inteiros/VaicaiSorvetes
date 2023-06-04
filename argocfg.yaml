@@ -1,0 +1,129 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaicai
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/JoaoEler/VaicaiSorvetes
+    path: /
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+  ignoreDifferences:
+  - group: core
+    kind: Service
+    jsonPointers:
+    - /spec/clusterIP
+  plugin:
+    name: helm
+    env:
+    - name: APP_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: vaicai-secrets
+          key: APP_SECRET
+    - name: APP_API_URL
+      value: "http://localhost:3333"
+    - name: APP_WEB_URL
+      value: "http://localhost:3000"
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: vaicai-secrets
+          key: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: vaicai-secrets
+          key: AWS_SECRET_ACCESS_KEY
+    - name: AWS_DEFAULT_REGION
+      valueFrom:
+        secretKeyRef:
+          name: vaicai-secrets
+          key: AWS_DEFAULT_REGION
+    - name: BUCKET
+      valueFrom:
+        secretKeyRef:
+          name: vaicai-secrets
+          key: BUCKET
+    - name: REDIS_HOST
+      value: "localhost"
+    - name: REDIS_PORT
+      value: "6379"
+    - name: REDIS_PASS
+      valueFrom:
+        secretKeyRef:
+          name: vaicai-secrets
+          key: REDIS_PASS
+    - name: STORAGE_DRIVER
+      value: "disk"
+    - name: MAIL_DRIVER
+      valueFrom:
+        secretKeyRef:
+          name: vaicai-secrets
+          key: MAIL_DRIVER
+    - name: POSTGRES_USER
+      value: "postgres"
+    - name: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: vaicai-secrets
+          key: POSTGRES_PASSWORD
+    - name: POSTGRES_DB
+      value: "vaicait"
+    - name: MONGO_INITDB_DATABASE
+      value: "vaicai_tst"
+  dependencies:
+    - name: frontend
+      source:
+        helm:
+          releaseName: frontend
+          chart: ./frontend
+      destination:
+        namespace: default
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      spec:
+        template:
+          spec:
+            containers:
+              - name: frontend
+                image: registry-url/frontend-image:version
+                ports:
+                  - containerPort: 3000
+                    protocol: TCP
+
+    - name: backend
+      source:
+        helm:
+          releaseName: backend
+          chart: ./backend
+      destination:
+        namespace: default
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      spec:
+        template:
+          spec:
+            containers:
+              - name: backend
+                image: registry-url/backend-image:version
+                ports:
+                  - containerPort: 3333
+                    protocol: TCP
