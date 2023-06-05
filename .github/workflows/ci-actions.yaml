@@ -20,6 +20,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          always-auth: false
+          check-latest: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          registry-url: 'https://registry.npmjs.org/'
+          scope: '.'
+          working-directory: VaicaiFrontend
       - name: Install dependencies
         run: npm install
         working-directory: VaicaiFrontend
@@ -43,7 +49,7 @@ jobs:
         with:
           repository: JoaoEler/VaicaiSorvetes
           ref: 'master'
-          token: ${{ secrets.G_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Git Config
         run: |
           git config --global user.email "jgelermendes@gmail.com"
