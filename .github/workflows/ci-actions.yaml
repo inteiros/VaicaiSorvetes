@@ -1,4 +1,4 @@
-name: Build Step
+name: Build and Deploy
 
 on:
   push:
@@ -12,52 +12,53 @@ jobs:
         node-version: [14.20.0]
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set working directory
-        run: cd VaicaiFrontend
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          always-auth: false
-          check-latest: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Change to VaicaiFrontend directory
+        run: cd VaicaiFrontend
+
       - name: Install dependencies
-        run: |
-          cd VaicaiFrontend
-          npm install
+        run: npm ci
+
       - name: Build project
-        run: |
-          cd VaicaiFrontend
-          npm run build --if-present
+        run: npm run build --if-present
 
   test-stage:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Running Tests
-        uses: actions/checkout@v3
-      - run: echo "running"
+        run: echo "Running tests"
 
   update-manifest-stage:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           repository: JoaoEler/VaicaiSorvetes
           ref: 'master'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.G_TOKEN }}
+
       - name: Set up Git Config
         run: |
           git config --global user.email "jgelermendes@gmail.com"
           git config --global user.name "JoaoEler"
+
+      - name: Change to VaicaiFrontend directory
+        run: cd VaicaiFrontend
+
       - name: Update Image in Deployment Manifest
         run: |
           sed -i "s#${{ github.actor }}.*#${{ github.actor }}/VaicaiSorvetes:${{ github.sha }}#g" deployment.yaml
           git add -A
           git commit -am "Update image for - ${{ github.sha }}"
-      - name: Push Changes to Remote Repository
-        run: git push origin master
+          git push origin master
