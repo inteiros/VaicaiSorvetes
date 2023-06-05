@@ -26,9 +26,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: VaicaiFrontend
 
       - name: Build project
         run: npm run build --if-present
+        working-directory: VaicaiFrontend
 
   test-stage:
     runs-on: ubuntu-latest
