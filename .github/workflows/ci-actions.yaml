@@ -24,14 +24,14 @@ jobs:
           check-latest: false
           token: ${{ secrets.GITHUB_TOKEN }}
           registry-url: 'https://registry.npmjs.org/'
-          scope: '.'
-          working-directory: VaicaiFrontend
       - name: Install dependencies
-        run: npm install
-        working-directory: VaicaiFrontend
+        run: |
+          cd VaicaiFrontend
+          npm install
       - name: Build project
-        run: npm run build --if-present
-        working-directory: VaicaiFrontend
+        run: |
+          cd VaicaiFrontend
+          npm run build --if-present
 
   test-stage:
     runs-on: ubuntu-latest
