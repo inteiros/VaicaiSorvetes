@@ -21,9 +21,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - name: Install dependencies
-        run: npm install --prefix VaicaiFrontend
+        run: npm install
+        working-directory: VaicaiFrontend
       - name: Build project
-        run: npm run build --if-present --prefix VaicaiFrontend
+        run: npm run build --if-present
+        working-directory: VaicaiFrontend
 
   test-stage:
     runs-on: ubuntu-latest
@@ -64,8 +66,8 @@ jobs:
         with:
           context: ./
           tags: |
-            imrishav/gitops01:${{ github.sha }} 
-            ghcr.io/imrishav/gitops01:${{ github.sha }}
+            JoaoEler/VaicaiSorvetes:${{ github.sha }} 
+            ghcr.io/JoaoEler/VaicaiSorvetes:${{ github.sha }}
           push: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Image digest
@@ -77,16 +79,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: imrishav/gitops-infra
+          repository: JoaoEler/VaicaiSorvetes
           ref: 'master'
           token: ${{ secrets.G_TOKEN }}
       - name: Set up Git Config
         run: |
-          git config --global user.email "rishav@live.co.uk"
-          git config --global user.name "imrishav"
+          git config --global user.email "jgelermendes@gmail.com"
+          git config --global user.name "JoaoEler"
       - name: Update Image in Deployment Manifest
         run: |
-          sed -i "s#${{ github.actor }}.*#${{ github.actor }}/gitops01:${{ github.sha }}#g" deployment.yaml
+          sed -i "s#${{ github.actor }}.*#${{ github.actor }}/VaicaiSorvetes:${{ github.sha }}#g" deployment.yaml
           git add -A
           git commit -am "Update image for - ${{ github.sha }}"
       - name: Push Changes to Remote Repository
