@@ -10,6 +10,8 @@ import {
   List,
   Section,
   Flavor,
+  Counter,
+  CounterFlex
 } from './styles';
 import { FiArrowLeft } from 'react-icons/fi';
 import Button from '../../components/Button';
@@ -17,12 +19,13 @@ import logoImg from '../../assets/logo.png';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 
-const Dashboard = () => {
+const FlavorsPage = () => {
   const data = useLocation();
   const history = useHistory();
   const { user } = useAuth();
   const [flavors, setFlavors] = useState([]);
   const [carrinho, setCarrinho] = useState([]);
+  const [counter, setCounter] = useState([]);
 
   const provider_id = data.state.loja;
   const loja = provider_id;
@@ -40,10 +43,23 @@ const Dashboard = () => {
   }, [loja, user]);
 
   const handleCarrinho = useCallback(async(flavor) => {
-    setCarrinho([flavor, ...carrinho]);
-  }, [carrinho]);
+    setCarrinho((prevCarrinho) => [flavor, ...prevCarrinho]);
+  }, []);
 
-  const flavorsname = () => {
+  const limparCarrinho = () => {
+    setCarrinho([]);
+    setCounter([]);
+  };
+
+  const calcPreco = () => {
+    const totalPrice = carrinho.reduce((accumulator, flavor) => {
+      return accumulator + flavor.price;
+    }, 0);
+
+    return totalPrice;
+  }
+
+  useEffect(() => {
     const flavorCounts = carrinho.reduce((counts, flavor) => {
       const { id } = flavor;
       const foundFlavor = flavors.find((flavor) => flavor.id === id);
@@ -68,23 +84,14 @@ const Dashboard = () => {
 
     const resultString = flavorStrings.join(', ');
 
-    return resultString;
-  };
-
-  const calcPreco = () => {
-    const totalPrice = carrinho.reduce((accumulator, flavor) => {
-      return accumulator + flavor.price;
-    }, 0);
-
-    return totalPrice;
-  }
+    setCounter(resultString);
+  }, [carrinho, flavors]);
 
   const handlePedido = async(provider_id, user) => {
     const price = calcPreco();
-    const flavorsnames = flavorsname();
-    const address = "Endereço: " + user.address;
-    console.log(provider_id, user.id, user.name, address, user.payment, flavorsnames, price)
-    await api.post('/pedidos', { provider_id, user_id: user.id, address, username: user.name, payment: user.payment, flavors: flavorsnames, price });
+    const name = "Endereço: " + user.address;
+    console.log(provider_id, user.id, user.name, name, user.payment, counter, price)
+    await api.post('/pedidos', { provider_id, user_id: user.id, name, username: user.name, payment: user.payment, flavors: counter, price });
     history.push("/");
   };
 
@@ -120,6 +127,11 @@ const Dashboard = () => {
                 <p>Nenhum sorvete dessa loja disponivel no momento</p>
               )}
 
+              <CounterFlex>
+                <Counter>{counter}</Counter>
+                {counter.length !== 0 && (<Button onClick={() => limparCarrinho()}>Limpar Carrinho</Button>)}
+              </CounterFlex>
+              
               {flavors.map((flavor) => (
                 <Flavor key={flavor.id}>
                   <div>
@@ -129,7 +141,7 @@ const Dashboard = () => {
                     />
 
                     <strong>{flavor.name}</strong>
-                    <strong>R${flavor.price}</strong>
+                    <strong>R${parseFloat(flavor.price).toFixed(2)}</strong>
 
                     <Button onClick={() => handleCarrinho(flavor)}> Adcionar sabor </Button>
                   </div>
@@ -145,4 +157,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default FlavorsPage;

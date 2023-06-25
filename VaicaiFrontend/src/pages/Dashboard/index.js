@@ -128,7 +128,7 @@ const Dashboard = () => {
                     <strong>{order.name}</strong>
                     <strong>{order.flavors}</strong>
                     <strong>{order.payment}</strong>
-                    <strong>R${order.price}</strong>
+                    <strong>R${parseFloat(order.price).toFixed(2)}</strong>
 
                   <Button onClick={() => handleDelete(order.id)}> Pedido entregue </Button>
                   </div>

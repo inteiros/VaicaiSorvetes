@@ -191,3 +191,13 @@ export const Flavor = styled.div`
     }
   }
 `;
+
+export const Counter = styled.div`
+  margin-left: 24px;
+  color: #f4ede8;
+  font-size: 20px;
+`
+
+export const CounterFlex = styled.div`
+  display: flex;
+`
