@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -22,6 +22,7 @@ import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 
 const Dashboard = () => {
+  const history = useHistory();
   const { signOut, user } = useAuth();
   const [providers, setProviders] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -50,6 +51,8 @@ const Dashboard = () => {
 
   const handleDelete = async(order_id) => {
     await api.delete(`/pedidos/del/${order_id}`);
+
+    history.push("/");
   };
 
   return (

@@ -24,7 +24,7 @@ describe('CreateFlavor', () => {
         const order = await createFlavor.execute({
             provider_id: `12345678910`,
             name: 'Morango',
-            price: 'R$3,00',
+            price: 3.00,
             pic: 'foto.png'
         });
 

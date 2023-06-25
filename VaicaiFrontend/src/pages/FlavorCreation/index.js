@@ -32,7 +32,7 @@ const Dashboard = () => {
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome do sabor obrigatório'),
-          price: Yup.string(),
+          price: Yup.number(),
           pic: Yup.string(),
           provider_id: Yup.string()
         });

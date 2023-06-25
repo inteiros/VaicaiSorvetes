@@ -39,29 +39,52 @@ const Dashboard = () => {
     }
   }, [loja, user]);
 
-  const handleCarrinho = useCallback(async(nomes) => {
-    setCarrinho([nomes, ...carrinho]);
+  const handleCarrinho = useCallback(async(flavor) => {
+    setCarrinho([flavor, ...carrinho]);
   }, [carrinho]);
 
   const flavorsname = () => {
-    let str = "";
-    str = carrinho.join(" 1x, ");
-    return str
-  }
+    const flavorCounts = carrinho.reduce((counts, flavor) => {
+      const { id } = flavor;
+      const foundFlavor = flavors.find((flavor) => flavor.id === id);
+
+      if (foundFlavor) {
+        const { name } = foundFlavor;
+        const key = name;
+
+        if (counts.hasOwnProperty(key)) {
+          counts[key]++;
+        } else {
+          counts[key] = 1;
+        }
+      }
+
+      return counts;
+    }, {});
+
+    const flavorStrings = Object.entries(flavorCounts).map(([name, count]) => {
+      return `${count}x ${name}`;
+    });
+
+    const resultString = flavorStrings.join(', ');
+
+    return resultString;
+  };
 
   const calcPreco = () => {
-    const price = carrinho.length * 3;
-    return price
+    const totalPrice = carrinho.reduce((accumulator, flavor) => {
+      return accumulator + flavor.price;
+    }, 0);
+
+    return totalPrice;
   }
 
-  const price = String(calcPreco() + ",00");
-  console.log(price);
-  const flavorsnames = flavorsname();
-
-  const handlePedido = async(provider_id, user, price) => {
-    const name = "Endereço: " + user.address;
-    console.log(provider_id, user.id, user.name, name, user.payment, flavorsnames, price)
-    await api.post('/pedidos', { provider_id, user_id: user.id, name, username: user.name, payment: user.payment, flavors: flavorsnames, price });
+  const handlePedido = async(provider_id, user) => {
+    const price = calcPreco();
+    const flavorsnames = flavorsname();
+    const address = "Endereço: " + user.address;
+    console.log(provider_id, user.id, user.name, address, user.payment, flavorsnames, price)
+    await api.post('/pedidos', { provider_id, user_id: user.id, address, username: user.name, payment: user.payment, flavors: flavorsnames, price });
     history.push("/");
   };
 
@@ -106,9 +129,9 @@ const Dashboard = () => {
                     />
 
                     <strong>{flavor.name}</strong>
-                    <strong>R${flavor.price},00</strong>
+                    <strong>R${flavor.price}</strong>
 
-                    <Button onClick={() => handleCarrinho(flavor.name)}> Adcionar sabor </Button>
+                    <Button onClick={() => handleCarrinho(flavor)}> Adcionar sabor </Button>
                   </div>
                 </Flavor>
               ))}
@@ -116,7 +139,7 @@ const Dashboard = () => {
           </List>
           )}
         </Content>
-        <Button onClick={() => handlePedido(provider_id, user, price)}> Realizar compra </Button>
+        <Button onClick={() => handlePedido(provider_id, user)}> Realizar compra </Button>
       </Container>
     </>
   );

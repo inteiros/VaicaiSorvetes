@@ -5,5 +5,5 @@ export default interface ICreateOrderDTO {
     username: string;
     payment: string;
     flavors: string;
-    price: string;
+    price: number;
 }

@@ -23,7 +23,7 @@ export class Flavors1652316007910 implements MigrationInterface {
                     },
                     {
                         name: 'price',
-                        type: 'varchar',
+                        type: 'float',
                     },
                     {
                         name: 'pic',

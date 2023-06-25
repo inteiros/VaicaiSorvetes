@@ -23,7 +23,7 @@ export class Orders1652316715727 implements MigrationInterface {
                     },
                     {
                         name: 'price',
-                        type: 'varchar',
+                        type: 'float',
                     },
                     {
                         name: 'user_id',

@@ -24,7 +24,7 @@ ordersRouter.post(
             username: Joi.string().required(),
             payment: Joi.string().required(),
             flavors: Joi.string().required(),
-            price: Joi.string().required(),
+            price: Joi.number().required(),
         },
     }),
     ordersController.create,

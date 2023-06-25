@@ -14,7 +14,7 @@ interface IRequest {
     username: string;
     payment: string;
     flavors: string;
-    price: string;
+    price: number;
 }
 
 @injectable()

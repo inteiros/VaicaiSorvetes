@@ -17,7 +17,7 @@ flavorRouter.post(
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
-            price: Joi.string().required(),
+            price: Joi.number().required(),
             pic: Joi.string(),
             provider_id: Joi.string().required(),
         },

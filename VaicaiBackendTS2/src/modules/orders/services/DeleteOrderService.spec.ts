@@ -41,7 +41,7 @@ describe('DeleteOrder', () => {
             user_id: '123456',
             provider_id: `12345678910`,
             flavors: 'Morango',
-            price: 'R$3,00',
+            price: 3.00,
             name: 'Joao',
             username: 'Joao',
             payment: 'Cartao',
