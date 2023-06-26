@@ -11,6 +11,7 @@ import {
   Section,
   Provider,
   Orders,
+  ButtonsBox
 } from './styles';
 
 import Button from '../../components/Button';
@@ -75,9 +76,15 @@ const Dashboard = () => {
             </Profile>
 
             {user.isProvider === true && (
-              <Link to="/flavoradd">
-                <span>Cadastrar sabores</span>
-              </Link>
+              <ButtonsBox>
+                <Link to="/flavoradd">
+                  <span>Cadastrar sabores</span>
+                </Link>
+                <Link to={{
+                  pathname: "/flavors",
+                  state: { loja: user.id}
+                }}>Sabores cadastrados</Link>
+              </ButtonsBox>
             )}
 
             <button type="button" onClick={signOut} >

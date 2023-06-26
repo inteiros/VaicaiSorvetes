@@ -150,8 +150,31 @@ const FlavorsPage = () => {
             </Section>
           </List>
           )}
+          {user.isProvider === true && (
+            <List>
+            <Section>
+              {flavors.length === 0 && (
+                <p>Nenhum sorvete cadastrado.</p>
+              )}
+              
+              {flavors.map((flavor) => (
+                <Flavor key={flavor.id}>
+                  <div>
+                    <img
+                      src={flavor.pic}
+                      alt={flavor.name}
+                    />
+
+                    <strong>{flavor.name}</strong>
+                    <strong>R${parseFloat(flavor.price).toFixed(2)}</strong>
+                  </div>
+                </Flavor>
+              ))}
+            </Section>
+          </List>
+          )}
         </Content>
-        <Button onClick={() => handlePedido(provider_id, user)}> Realizar compra </Button>
+        {user.isProvider === false && (<Button onClick={() => handlePedido(provider_id, user)}> Realizar compra </Button>)}
       </Container>
     </>
   );

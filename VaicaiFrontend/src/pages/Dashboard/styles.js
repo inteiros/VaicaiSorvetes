@@ -240,3 +240,25 @@ export const Orders = styled.div`
     }
   }
 `;
+
+export const ButtonsBox = styled.div`
+  display: flex;
+  margin-left: 45%;
+  
+  justify-content: space-between;
+
+  a {
+    &:hover {
+      background: ${shade(0.2, '#ff9000')};
+    }
+    width: 180px;
+    margin: 20px;
+    height: 95px;
+    color: #f4ede8;
+    align-items: center;
+    padding: 16px 24px;
+    border-radius: 10px;
+    font-size: 20px;
+    text-decoration: none;
+  }
+`;
