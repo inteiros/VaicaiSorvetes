@@ -9,7 +9,7 @@ export default class UsersController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { name, email, password, address, payment, isProvider } = request.body;
+        const { name, email, password, address, payment, isProvider, avatar } = request.body;
 
         const createUser = container.resolve(CreateUserService);
 
@@ -19,7 +19,8 @@ export default class UsersController {
             password,
             address,
             payment,
-            isProvider
+            isProvider,
+            avatar
         });
 
         return response.json(classToClass(user));

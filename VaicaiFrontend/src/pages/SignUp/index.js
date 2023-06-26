@@ -33,7 +33,7 @@ const SignUp = () => {
           password: Yup.string().min(6, 'Minimo de 6 digitos'),
           address: Yup.string(),
           payment: Yup.string(),
-          pic: Yup.string(),
+          avatar: Yup.string(),
           isProvider: Yup.boolean()
         });
 

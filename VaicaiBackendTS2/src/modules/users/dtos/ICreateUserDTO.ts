@@ -5,4 +5,5 @@ export default interface ICreateUserDTO {
     address: string;
     payment: string;
     isProvider: boolean;
+    avatar?: string;
 }
