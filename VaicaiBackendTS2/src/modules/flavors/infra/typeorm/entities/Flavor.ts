@@ -16,7 +16,7 @@ class Flavor {
     provider_id: string;
     
     @Column()
-    price: string;
+    price: number;
 
     @Column()
     pic: string;
