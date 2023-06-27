@@ -35,6 +35,6 @@ export default class OrdersController {
 
         const deleteOrder = container.resolve(DeleteOrderService);
 
-        await deleteOrder.execute(order);
+        await deleteOrder.execute({order_id: order});
     }
 }
