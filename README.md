@@ -83,7 +83,7 @@
 - Frameworks: Express.js e React;
 - ORM: TypeORM;
 - Banco de Dados: PostgreSQL, Redis alpine, MongoDB;
-- Repositório: https://github.com/jsxmafia/VaicaiSorvetes;
+- Repositório: https://github.com/liedto/VaicaiSorvetes;
 - Diagramas: Astah 7.1.0;
 - Testes automatizados: Jest;
 
